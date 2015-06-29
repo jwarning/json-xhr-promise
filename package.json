@@ -1,0 +1,13 @@
+{
+  "name": "json-xhr-promise",
+  "version": "1.0.0",
+  "description": "A simple promise wrapper around a JSON XHR method",
+  "main": "index.js",
+  "author": "Jonathan Warning",
+  "license": "MIT",
+  "devDependencies": {
+    "gulp": "^3.9.0",
+    "gulp-babel": "^5.1.0",
+    "gulp-rename": "^1.2.2"
+  }
+}
