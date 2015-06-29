@@ -1,4 +1,4 @@
-# XHR Methods
+# JSON XHR Promise
 
 A simple JS Promise wrapper around an XMLHttpRequest with JSON. The module is a
 function that takes the HTTP method name, the url of the request and optionally
