@@ -5,7 +5,7 @@ var rename = require('gulp-rename');
 var src = 'index.js';
 
 gulp.task('build', function () {
-  gulp.src(src)
+  return gulp.src(src)
     .pipe(babel())
     .pipe(rename('json-xhr-promise.js'))
     .pipe(gulp.dest('dist'));
