@@ -5,6 +5,15 @@ function that takes the HTTP method name, the url of the request and optionally
 any data to send with the request. On success (an HTTP 200 success code) the
 promise resolves and upon any other codes/errors it rejects the promise.
 
+## Example
+
+```
+import jsonXHR from 'json-xhr-promise';
+
+jsonXHR('POST', 'http://example.com/path', { value: 'Promises rule!' })
+  .then(data => console.log(data));
+```
+
 ## Notes
 
 - The HTTP method string should ideally be in the format: 'GET', 'POST', 'PUT', 'DELETE', etc...
