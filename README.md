@@ -2,7 +2,7 @@
 
 A simple JS Promise wrapper around an XMLHttpRequest with JSON. The module is a
 function that takes the HTTP method name, the url of the request and optionally
-any data to send with the request. On success (an HTTP 200 success code) the
+any data to send with the request. On success (an HTTP 2xx success code) the
 promise resolves and upon any other codes/errors it rejects the promise.
 
 ## Example

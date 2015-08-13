@@ -11,7 +11,7 @@ export default function (method, url, data) {
     request.withCredentials = true;
 
     request.onload = () => {
-      if (request.status === 200) {
+      if (request.status >= 200 && request.status < 300) {
         resolve(JSON.parse(request.response));
       }
       else {
