@@ -1,8 +1,8 @@
 {
   "name": "json-xhr-promise",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "A simple promise wrapper around a JSON XHR method",
-  "main": "index.js",
+  "main": "dist/json-xhr-promise.js",
   "author": "Jonathan Warning",
   "license": "MIT",
   "devDependencies": {
