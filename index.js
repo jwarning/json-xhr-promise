@@ -1,28 +1,49 @@
-export default function (method, url, data) {
-  // create a promise around an xhr object with json
-  return new Promise((resolve, reject) => {
-    var request = new XMLHttpRequest();
+var requests = {};
 
-    request.open(method, url, true);
+export default function (method, url, data, useCache) {
+	var withCredentials = true;
 
-    // support cross origin requests
-    request.setRequestHeader('Accept', '*/*');
-    request.setRequestHeader('Content-type', 'application/json');
-    request.withCredentials = true;
+	if (arguments.length === 1) {
+		var options = arguments[0];
+		method = options.method || options.type || 'GET';
+		useCache = options.useCache || options.cache;
+		url = options.url;
+		data = options.data;
+		withCredentials = typeof options.withCredentials !== 'undefined' ? !!options.withCredentials : true;
+	}
 
-    request.onload = () => {
-      if (request.status >= 200 && request.status < 300) {
-        resolve(JSON.parse(request.response));
-      }
-      else {
-        reject(Error(request.statusText));
-      }
-    };
+	var jsonData = JSON.stringify(data);
+	var cacheIndex = jsonData === undefined ? '' : jsonData;
 
-    request.onerror = () => {
-      reject(Error('A network error occurred'));
-    };
+	// create a promise around an xhr object with json
+	if (!useCache || !(requests[url] && requests[url][cacheIndex])) {
 
-    request.send(JSON.stringify(data));
-  });
+		if (!requests[url])
+			requests[url] = [];
+
+		requests[url][cacheIndex] = new Promise((resolve, reject) => {
+			var request = new XMLHttpRequest();
+
+			request.open(method, url, true);
+
+			// support cross origin requests
+			request.setRequestHeader('Accept', '*/*');
+			request.setRequestHeader('Content-type', 'application/json');
+			request.withCredentials = withCredentials;
+
+			request.onload = () => {
+				if (request.status >= 200 && request.status < 300) {
+					resolve(JSON.parse(request.response));
+				} else {
+					reject(request.statusText);
+				}
+			};
+
+			request.onerror = () => reject('A network error occurred');
+
+			request.send(jsonData);
+		});
+	}
+
+	return requests[url][cacheIndex];
 }
