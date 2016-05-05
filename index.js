@@ -1,10 +1,11 @@
-let requests = {};
+let cache = {};
 
 export default function(method, url, data, useCache) {
   let withCredentials = true;
 
   if (arguments.length === 1) {
     const options = arguments[0];
+
     method = options.method || options.type || 'GET';
     useCache = options.useCache || options.cache;
     url = options.url;
@@ -15,14 +16,13 @@ export default function(method, url, data, useCache) {
   }
 
   const jsonData = JSON.stringify(data);
-  const cacheIndex = jsonData === undefined ? '' : jsonData;
+  const cacheValue = jsonData === undefined ? '' : jsonData;
 
-
-  if (!useCache || !(requests[url] && requests[url][cacheIndex])) {
-    if (!requests[url]) requests[url] = [];
+  if (!useCache || !(cache[url] && cache[url][cacheValue])) {
+    if (!cache[url]) cache[url] = [];
 
     // create a promise around an xhr object with json
-    requests[url][cacheIndex] = new Promise((resolve, reject) => {
+    cache[url][cacheValue] = new Promise((resolve, reject) => {
       let request = new XMLHttpRequest();
 
       request.open(method, url, true);
@@ -40,11 +40,11 @@ export default function(method, url, data, useCache) {
         }
       };
 
-      request.onerror = () => reject('A network error occurred');
+      request.onerror = () => reject('An error occurred in the request');
 
       request.send(jsonData);
     });
   }
 
-  return requests[url][cacheIndex];
+  return cache[url][cacheValue];
 }

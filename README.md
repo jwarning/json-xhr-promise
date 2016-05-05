@@ -12,6 +12,14 @@ import jsonXHR from 'json-xhr-promise';
 
 jsonXHR('POST', 'http://example.com/path', { value: 'Promises rule!' })
   .then(data => console.log(data));
+
+// alternate method
+jsonXHR({
+  method: 'POST',
+  url: 'http://example.com/path',
+  data: { id: 1 }
+}).then(data => console.log(data));
+
 ```
 
 ## Notes
@@ -19,10 +27,6 @@ jsonXHR('POST', 'http://example.com/path', { value: 'Promises rule!' })
 - The HTTP method string should ideally be in the format: 'GET', 'POST', 'PUT', 'DELETE', etc...
 - The url should be a string of the full path
 - The data should be a plain JS object (it gets stringified in the request)
-
-To build a CommonJS version of this file simply run `gulp build`.
-If you want a different output type you can simply set the option on the Babel
-step in the gulpfile. A build is already included in the dist folder.
 
 ## License
 
