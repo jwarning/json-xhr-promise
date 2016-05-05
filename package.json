@@ -2,21 +2,28 @@
   "name": "json-xhr-promise",
   "version": "1.2.0",
   "description": "A simple promise wrapper around a JSON XHR method",
-  "main": "dist/json-xhr-promise.js",
   "author": "Jonathan Warning",
   "license": "MIT",
+  "repository" : {
+    "type" : "git",
+    "url" : "https://github.com/jwarning/json-xhr-promise.git"
+  },
+  "files": [
+    "dist",
+    "index.js"
+  ],
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "babel index.js -d dist",
+    "prepublish": "npm run build"
+  },
   "devDependencies": {
-    "gulp": "^3.9.0",
-    "gulp-babel": "^5.2.0",
-    "gulp-rename": "^1.2.2"
+    "babel-cli": "^6.8.0",
+    "babel-core": "^6.8.0"
   },
   "keywords": [
     "json",
     "xhr",
     "promise"
-  ],
-  "repository" : {
-    "type" : "git",
-    "url" : "https://github.com/jwarning/json-xhr-promise.git"
-  }
+  ]
 }
